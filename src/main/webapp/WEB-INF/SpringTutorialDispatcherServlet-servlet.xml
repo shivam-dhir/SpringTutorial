@@ -3,20 +3,52 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:context="http://www.springframework.org/schema/context"
     xmlns:mvc="http://www.springframework.org/schema/mvc"
+    xmlns:tx="http://www.springframework.org/schema/tx"
     xmlns:ctx="http://www.springframework.org/schema/context"
     xsi:schemaLocation="http://www.springframework.org/schema/beans  
-    http://www.springframework.org/schema/beans/spring-beans.xsd  
-    http://www.springframework.org/schema/context  
-    http://www.springframework.org/schema/context/spring-context.xsd  
+    http://www.springframework.org/schema/beans/spring-beans-4.1.xsd  
     http://www.springframework.org/schema/mvc  
-    http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+    http://www.springframework.org/schema/mvc/spring-mvc-4.1.xsd
+    http://www.springframework.org/schema/tx  
+    http://www.springframework.org/schema/tx/spring-tx-4.1.xsd
+    http://www.springframework.org/schema/context  
+    http://www.springframework.org/schema/context/spring-context-4.1.xsd">
     
     
 <!--     Below if configuration for DispatcherServlet and to let it know where to route requests -->
-<!-- This is because we are using just spring, and not springboot -->
+<!-- This is because we are using just spring, and not SpringBoot -->
  
-    <ctx:component-scan base-package="com.Shivam.controller"></ctx:component-scan>
+    <ctx:component-scan base-package="com.Shivam"></ctx:component-scan>
     <ctx:annotation-config></ctx:annotation-config>
+    
+    <bean id="myDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+    	<property name="driverClass" value="com.mysql.cj.jdbc.Driver"></property>
+    	<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/games"></property>
+    	<property name="user" value="root"></property>
+		<property name="password" value="admin"></property> 
+		<property name="minPoolSize" value="5"></property>
+		<property name="maxPoolSize" value="10"></property>
+		<property name="maxIdleTime" value="30000"></property>   	
+    </bean>
+    
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+    	<property name="dataSource" ref="myDataSource"></property>
+    	<property name="packagesToScan" value="com.Shivam.model"></property>
+    	<property name="hibernateProperties">
+    		<props>
+    			<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+    			<prop key="hibernate.show_sql">true</prop>
+    		</props>
+    	</property>
+    </bean>
+    
+    <bean id="myTransactionManager" class="org.springframework.orm.	hibernate5.HibernateTransactionManager">
+    	<property name="sessionFactory" ref="sessionFactory"></property>
+    </bean>
+    
+    <!-- Struggled a lot with this error: cvc-complex-type.2.4.c: The matching wildcard is strict, but no declaration can be found for element -->
+    <!-- Solution was to Use *-4.1.xsd in beans tag on top with all .xsd extensions, since this project uses 4.1 spring version-->
+    <tx:annotation-driven transaction-manager="myTransactionManager"></tx:annotation-driven>
 
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<!-- <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"></property> -->
