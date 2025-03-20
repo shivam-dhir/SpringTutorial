@@ -13,6 +13,7 @@
     
     
 <!--     Below if configuration for DispatcherServlet and to let it know where to route requests -->
+<!-- This is because we are using just spring, and not springboot -->
  
     <ctx:component-scan base-package="com.Shivam.controller"></ctx:component-scan>
     <ctx:annotation-config></ctx:annotation-config>
