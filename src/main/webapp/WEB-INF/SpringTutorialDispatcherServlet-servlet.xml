@@ -18,7 +18,7 @@
 <!--     Below if configuration for DispatcherServlet and to let it know where to route requests -->
 <!-- This is because we are using just spring, and not SpringBoot -->
  
-    <ctx:component-scan base-package="com.Shivam"></ctx:component-scan>
+    <ctx:component-scan base-package="controllers"></ctx:component-scan>
     <ctx:annotation-config></ctx:annotation-config>
     
     <bean id="myDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
@@ -42,7 +42,7 @@
     	</property>
     </bean>
     
-    <bean id="myTransactionManager" class="org.springframework.orm.	hibernate5.HibernateTransactionManager">
+    <bean id="myTransactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
     	<property name="sessionFactory" ref="sessionFactory"></property>
     </bean>
     
@@ -51,7 +51,7 @@
     <tx:annotation-driven transaction-manager="myTransactionManager"></tx:annotation-driven>
 
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<!-- <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"></property> -->
+		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView"></property>
 		<property name="prefix" value="/views/"></property>
 		<property name="suffix" value=".jsp"></property>
 	</bean>

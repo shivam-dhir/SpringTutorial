@@ -10,8 +10,9 @@
 	Hello World !!!
 	
 	<form action="add">
-		Enter 1st number : <input name="num1" type="text"><br>
-		Enter 2nd number : <input name="num2" type="text"><br>
+		Enter ID : <input name="gameId" type="text"><br>
+		Enter Name : <input name="gameName" type="text"><br>
+		Enter Metascore : <input name="metascore" type="text"><br>
 		<input type="submit">
 	</form>
 	
