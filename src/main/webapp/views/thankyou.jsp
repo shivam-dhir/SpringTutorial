@@ -8,5 +8,8 @@
 </head>
 <body>
 	Game Has Been Added, Thank You !!!
+	<form action="getGames">
+		<input type="submit" value="Games Dictionary">
+	</form>
 </body>
 </html>

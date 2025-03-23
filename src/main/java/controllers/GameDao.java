@@ -28,7 +28,7 @@ public class GameDao {
 		Session session = sessionFactory.getCurrentSession();
 		// When writing the query, we have to mention the Entity(class) Name, not the table name in SQL database 
 		// The name of the SQL database is mentioned using @Table(name="table_name") with the Entity Class
-		String query = "SELECT DISTINCT id FROM Game";	
+		String query = "FROM Game";	
 		// list() is used to convert result into a list.
 		List<Game> games =  session.createQuery(query, Game.class).list();  
 		return games; 
