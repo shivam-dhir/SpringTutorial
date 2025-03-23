@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 import jakarta.transaction.Transactional;
 
-// Component annotation makes spring create an object of it to be injected
+// Component annotation creates an object of it to be injected
 @Component
 public class GameDao {
 	
@@ -21,6 +21,17 @@ public class GameDao {
 	public void addGame(Game game) {
 		Session session = sessionFactory.getCurrentSession();
 		session.persist(game);
+	}
+	
+	@Transactional
+	public Game getGame(int gameId) {
+		Session session = sessionFactory.getCurrentSession();
+//		String query = "FROM Game WHERE id = " + Integer.toString(gameId);
+//		List<Game> game = session.createQuery(query, Game.class).list();
+		
+		// Since we are using Spring ORM, we can use session.get to get required row in table instead of writing query manually.
+		Game game = session.get(Game.class, gameId);
+		return game;
 	}
 	
 	// @Transactional: Takes care of creating and commiting a new transaction while communicating with DB

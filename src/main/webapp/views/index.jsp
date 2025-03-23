@@ -13,7 +13,14 @@
 		Enter ID : <input name="gameId" type="text"><br>
 		Enter Name : <input name="gameName" type="text"><br>
 		Enter Metascore : <input name="metascore" type="text"><br>
-		<input type="submit">
+		<input value="Add Game" type="submit">
+	</form>
+	
+	<hr>
+	
+	<form action="getGame">
+		Enter ID: <input name="gameId" type="text"><br>
+		<input value="Get Game" type="submit">
 	</form>
 	
 </body>

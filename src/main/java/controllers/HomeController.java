@@ -45,6 +45,13 @@ public class HomeController {
 		return "thankyou";  
 	}
 	
+	@RequestMapping("getGame")
+	public String getAlien(@RequestParam("gameId") int gameId, ModelMap mm) {
+		Game game = gameDao.getGame(gameId);
+		mm.addAttribute("game", game);
+		return "getGame";
+	}
+	
 	@RequestMapping("getGames")
 	public String getGames(ModelMap mm){
 		mm.addAttribute("gamesList", gameDao.getGames()); // dao.getGames returns list of all games in mysql DB
