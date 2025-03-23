@@ -26,14 +26,16 @@
     	<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/games"></property>
     	<property name="user" value="root"></property>
 		<property name="password" value="admin"></property> 
-		<property name="minPoolSize" value="5"></property>
+		<!-- <property name="minPoolSize" value="5"></property>
 		<property name="maxPoolSize" value="10"></property>
-		<property name="maxIdleTime" value="30000"></property>   	
+		<property name="maxIdleTime" value="30000"></property>  -->	
     </bean>
     
+    <!-- Note: Always check if packagesToScan has the right package value. exact package name is on top of java class you are dealing with. Was struggling with this issue for 4 days -->
+    <!-- Error: could not resolve entity "Game".This was because I was not scanning the right package which had Game.java class. -->
     <bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
     	<property name="dataSource" ref="myDataSource"></property>
-    	<property name="packagesToScan" value="com.Shivam.model"></property>
+    	<property name="packagesToScan" value="controllers"></property>
     	<property name="hibernateProperties">
     		<props>
     			<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>

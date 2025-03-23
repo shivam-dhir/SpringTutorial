@@ -3,7 +3,6 @@ package controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -35,14 +34,18 @@ public class HomeController {
 		// mv.setViewName("add");
 		//mv.addObject("res", res);
 		
-		gameDao.addGame();
+		Game newGame = new Game();
+		newGame.setId(gameId);
+		newGame.setName(gameName);
+		newGame.setMetascore(metascore);
 		
+		gameDao.addGame(newGame); 
 		return "thankyou";  
 	}
 	
 	@RequestMapping("getGames")
 	public String getGames(ModelMap mm){
-		mm.addAttribute("games", gameDao.getGames()); // dao.getGames returns list of all games in mysql DB
+		mm.addAttribute("gamesList", gameDao.getGames()); // dao.getGames returns list of all games in mysql DB
 		return "showGames";
 	}
 	

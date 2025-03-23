@@ -1,7 +1,14 @@
-package models;
+package controllers;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name="gamedb")
 public class Game {
 	
+	@Id
 	private int id;
 	private String name;
 	private int metascore;
@@ -29,7 +36,5 @@ public class Game {
 	public String toString() {
 		return "Game [id=" + id + ", name=" + name + ", metascore=" + metascore + "]";
 	}
-	
-	
-	
+
 }
