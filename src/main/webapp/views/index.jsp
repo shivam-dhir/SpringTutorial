@@ -7,7 +7,7 @@
 <title>Main Page</title>
 </head>
 <body>
-	Hello World !!!
+	Hello ${name} !!!
 	
 	<form action="add">
 		Enter ID : <input name="gameId" type="text"><br>

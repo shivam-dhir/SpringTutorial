@@ -16,16 +16,17 @@ public class GameDao {
 	@Autowired
 	private SessionFactory sessionFactory;
 	
+	// @SuppressWarnings("deprecation") -> if using session.save(object)
 	@Transactional
 	public void addGame(Game game) {
 		Session session = sessionFactory.getCurrentSession();
-		session.save(game);
+		session.persist(game);
 	}
 	
 	// @Transactional: Takes care of creating and commiting a new transaction while communicating with DB
 	@Transactional
 	public List<Game> getGames(){
-		Session session = sessionFactory.getCurrentSession();
+		Session session = sessionFactory.getCurrentSession(); 
 		// When writing the query, we have to mention the Entity(class) Name, not the table name in SQL database 
 		// The name of the SQL database is mentioned using @Table(name="table_name") with the Entity Class
 		String query = "FROM Game";	

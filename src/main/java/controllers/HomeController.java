@@ -13,10 +13,12 @@ public class HomeController {
 	@Autowired
 	private GameDao gameDao; 
 	
-	// ModelAttribute is used to assign variables/ objects beforehand
-	@ModelAttribute
-	public void assignName(ModelMap mm) {
-		mm.addAttribute("name", "Shivam"); // addAttribute: add a variable to the ModelMap, according to the MVC design pattern.
+	// ModelAttribute is used to assign objects/ variable, i.e. whatever the return value is to the attribute name.
+	// In this case, the string puttwhiskey is assigned to the variable name, and can be used by views html/jsp files.
+	// If I was returning a Game object, the object would be assigned to the variable name.
+	@ModelAttribute("username")
+	public String assignName(ModelMap mm) { 
+		return "puttWhiskey"; // addAttribute: add a variable to the ModelMap, according to the MVC design pattern.
 	}
 	
 	@RequestMapping("/")
@@ -27,17 +29,17 @@ public class HomeController {
 	
 	@RequestMapping("add") 
 	// request mapping allows to fetch parameters from HttpServletRequest object
-	public String add(@RequestParam("gameId") int gameId, @RequestParam("gameName") String gameName, @RequestParam("metascore") int metascore, ModelMap mm) {
+	public String add(@ModelAttribute("gamesList") Game newGame) { //(@RequestParam("gameId") int gameId, @RequestParam("gameName") String gameName, @RequestParam("metascore") int metascore, ModelMap mm) {
 		
 		// ModelAndView is an MVC concept to reduce configurations. It is used instead of HttpSession in this case.
 		// ModelAndView mv = new ModelAndView();
 		// mv.setViewName("add");
 		//mv.addObject("res", res);
-		
-		Game newGame = new Game();
-		newGame.setId(gameId);
-		newGame.setName(gameName);
-		newGame.setMetascore(metascore);
+//		
+//		Game newGame = new Game();
+//		newGame.setId(gameId);
+//		newGame.setName(gameName);
+//		newGame.setMetascore(metascore);
 		
 		gameDao.addGame(newGame); 
 		return "thankyou";  
